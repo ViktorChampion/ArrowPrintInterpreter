@@ -1027,4 +1027,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     setTimeout(runCode, 500);
-});
+})
