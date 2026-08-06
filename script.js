@@ -420,12 +420,7 @@ class ArrowPrint {
                             break;
                         }
                         case '|': {
-                            if (this.stack.length >= 2) {
-                                const a = this.stack.pop();  // верхний
-                                const b = this.stack.pop();  // следующий
-                                this.stack.push(a);          // кладём a (он станет верхним)
-                                this.stack.push(b);          // кладём b (он станет под ним)
-                            }
+                            this.stack = [];
                             break;
                         }
                     }
