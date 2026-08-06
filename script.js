@@ -420,12 +420,11 @@ class ArrowPrint {
                             break;
                         }
                         case '|': {
-                            // Обмен двух верхних элементов (swap)
                             if (this.stack.length >= 2) {
-                                const a = this.stack.pop();
-                                const b = this.stack.pop();
-                                this.stack.push(a);
-                                this.stack.push(b);
+                                const a = this.stack.pop();  // верхний
+                                const b = this.stack.pop();  // следующий
+                                this.stack.push(a);          // кладём a (он станет верхним)
+                                this.stack.push(b);          // кладём b (он станет под ним)
                             }
                             break;
                         }
