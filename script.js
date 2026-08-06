@@ -420,19 +420,17 @@ class ArrowPrint {
                             break;
                         }
                         case '|': {
-                            // Максимум в стеке
-                            let maxVal = 0;
-                            let hasNumber = false;
-                            for (const v of this.stack) {
-                                if (typeof v === 'number' && !isNaN(v)) {
-                                    if (!hasNumber || v > maxVal) {
-                                        maxVal = v;
-                                        hasNumber = true;
-                                    }
+                            // Быстрое условие: если 0 → вправо, иначе влево
+                            if (this.stack.length > 0) {
+                                const v = this.stack.pop();
+                                if (v === 0 || v === '' || v === null) {
+                                    this.dx = 1;
+                                    this.dy = 0;
+                                } else {
+                                    this.dx = -1;
+                                    this.dy = 0;
                                 }
                             }
-                            this.stack = [];
-                            this.stack.push(hasNumber ? maxVal : 0);
                             break;
                         }
                     }
