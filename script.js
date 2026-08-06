@@ -420,16 +420,12 @@ class ArrowPrint {
                             break;
                         }
                         case '|': {
-                            // Быстрое условие: если 0 → вправо, иначе влево
-                            if (this.stack.length > 0) {
-                                const v = this.stack.pop();
-                                if (v === 0 || v === '' || v === null) {
-                                    this.dx = 1;
-                                    this.dy = 0;
-                                } else {
-                                    this.dx = -1;
-                                    this.dy = 0;
-                                }
+                            // Обмен двух верхних элементов (swap)
+                            if (this.stack.length >= 2) {
+                                const a = this.stack.pop();
+                                const b = this.stack.pop();
+                                this.stack.push(a);
+                                this.stack.push(b);
                             }
                             break;
                         }
