@@ -1,0 +1,106 @@
+Hello b_jonas!
+
+Thank you for your interest in ArrowPrint.
+
+=== Indexing and Slices ===
+
+The syntax <code>(n)</code> and <code>(start:end:step)</code> work '''directly on the stack''', not on arrays. There are no array objects in ArrowPrint — everything is the stack.
+
+* <code>(n)</code> — takes the element at index <code>n</code> (0-based from the bottom of the stack) and '''moves''' it to the top. It does not copy; it removes the element from its original position.
+* <code>(start:end)</code> — takes a slice of the stack and '''moves''' those elements to the top, preserving their order.
+* <code>(start:end:step)</code> — same, but with a step.
+
+Negative indices work like in Python: <code>(-1)</code> is the last element, <code>(-2)</code> is the second last, etc.
+
+=== Does it copy or move? ===
+
+It '''moves''' elements. The original positions are vacated, and the elements are appended to the top of the stack in the order they were sliced.
+
+=== The <code>n</code> placeholder ===
+
+<code>n</code> can be:
+* A positive integer: <code>(0)</code>, <code>(5)</code>
+* A negative integer: <code>(-1)</code>, <code>(-3)</code>
+* Or a range: <code>(1:4)</code>, <code>(0:6:2)</code>
+
+Spaces are allowed: <code>( 1 : 4 )</code> works too.
+
+=== Example: reading numbers until zero, printing each + 1 in the same order ===
+
+Here's how you'd do that in ArrowPrint:
+
+<pre>
+# Read numbers until zero
+>"Enter numbers (0 to stop):\n"?1>>{=0}>@@
+                                   v
+                                 ^,<
+</pre>
+
+But this prints in reverse order because the stack is LIFO. To preserve order, we store them and then use indexing:
+
+<pre>
+# Store numbers in the stack, then print them in the same order
+
+"Enter numbers (0 to stop):\n" ?
+
+# Read loop
+1
+:
+{
+  ,
+  {
+    =0}
+    @@
+    {
+      }
+      1 +
+      ?
+      1 +
+      ?
+    }
+  }
+}
+
+# Now the stack has all the numbers in reverse order.
+# We need to print them in the original order.
+# We can use indexing to access from the bottom.
+
+"Results in original order:\n" ?
+
+# Get the length of the stack
+$
+# We'll use this as a counter
+
+1
+:
+{
+  =}
+  # Take the element at index 0 (bottom of the stack)
+  (0)
+  ?
+  "\n" ?
+  1 +
+  ?
+}
+</pre>
+
+=== Can this be simulated by a stack machine? ===
+
+Yes and no. A pure stack machine with only <code>push</code> and <code>pop</code> cannot access arbitrary elements deep in the stack. This is why ArrowPrint has indexing — it provides random access to the stack, which makes certain algorithms much easier and more efficient.
+
+=== Implementation and documentation ===
+
+The reference implementation is available on GitHub:
+
+* https://github.com/ViktorChampion/arrowprint
+
+There you'll find:
+* The full Python interpreter
+* A web-based interpreter (in the <code>web</code> folder)
+* More code examples in the <code>examples/</code> directory
+
+Also check out the VS Code extension for syntax highlighting.
+
+Let me know if you have any more questions!
+
+— ViktorChampion
