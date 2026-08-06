@@ -144,19 +144,6 @@ class ArrowPrint {
             }
             content = content.trim();
 
-            if (content.includes('|')) {
-                const parts = content.split('|');
-                if (parts.length === 2) {
-                    const a = parseInt(parts[0].trim()) || 0;
-                    const b = parseInt(parts[1].trim()) || 9;
-                    const low = Math.min(a, b);
-                    const high = Math.max(a, b);
-                    this.stack.push(Math.floor(this.random() * (high - low + 1)) + low);
-                }
-                this.x = cx; this.y = cy;
-                return;
-            }
-
             if (content.includes(',')) {
                 const parts = content.split(',');
                 if (parts.length === 2) {
