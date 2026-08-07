@@ -4,7 +4,7 @@
 // ============================================================
 
 class ArrowPrint {
-    constructor(code, inputHandler) {
+    constructor(code, inputHandler, maxSteps = Infinity) {
         this.code = code;
         this.grid = [];
         this.stack = [];
@@ -14,7 +14,7 @@ class ArrowPrint {
         this.dy = 0;
         this.output = '';
         this.running = false;
-        this.maxSteps = 100000;
+        this.maxSteps = maxSteps;
         this.stepCount = 0;
         this.random = Math.random;
         this.inputHandler = inputHandler || (() => '');
@@ -856,7 +856,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const examplesContainer = document.getElementById('examplesContainer');
     const terminalInput = document.getElementById('terminal-input');
     const inputLine = document.getElementById('input-line');
-
+    const limitToggle = document.getElementById('limitToggle');
+    const stepLimitInput = document.getElementById('stepLimit');
     if (typeof examples !== 'undefined') {
         for (const [name, code] of Object.entries(examples)) {
             const btn = document.createElement('button');
@@ -943,12 +944,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(async () => {
             try {
+                // Получаем лимит шагов
+                let maxSteps = Infinity;
+                if (limitToggle.checked) {
+                    const val = parseInt(stepLimitInput.value);
+                    if (!isNaN(val) && val > 0) {
+                        maxSteps = val;
+                    }
+                }
+
                 const interpreter = new ArrowPrint(code, async () => {
                     const output = document.getElementById('output');
                     const t = translations[currentLang];
                     output.textContent += '\n⌨️ ' + t.inputPrompt + ' ';
                     return await handleInput();
-                });
+                }, maxSteps);
 
                 const result = interpreter.run();
                 const output = document.getElementById('output');

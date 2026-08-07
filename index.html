@@ -27,6 +27,14 @@
                     <button id="clearBtn">✕ <span id="clearText">Clear</span></button>
                     <span class="examples-label" id="examplesLabel">Examples:</span>
                     <div class="examples" id="examplesContainer"></div>
+                    <div class="limit-controls">
+                    <label>
+                        <input type="checkbox" id="limitToggle" checked>
+                        Есть лимит?
+                        </label>
+                        <input type="number" id="stepLimit" value="100000" min="1" step="1">
+                        <span style="color: #8b949e; font-size: 13px;">шагов</span>
+                    </div>
                 </div>
                 <textarea id="codeInput" spellcheck="false" placeholder="Your code: "></textarea>
             </div>

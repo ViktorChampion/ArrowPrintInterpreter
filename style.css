@@ -303,3 +303,34 @@ footer a:hover {
         flex: 2;
     }
 }
+
+.limit-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    color: #c9d1d9;
+    font-size: 13px;
+}
+
+.limit-controls input[type="checkbox"] {
+    accent-color: #58a6ff;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.limit-controls input[type="number"] {
+    width: 80px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+}
+
+.limit-controls input[type="number"]:focus {
+    border-color: #58a6ff;
+}
