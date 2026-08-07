@@ -772,22 +772,6 @@ class ArrowPrint {
                     this.x = nx; this.y = ny;
                     return;
                 }
-                if (mod === '^') {
-                    if (this.stack.length > 0) {
-                        const v = this.stack.pop();
-                        this.stack.push(String(v).toUpperCase());
-                    }
-                    this.x = nx; this.y = ny;
-                    return;
-                }
-                if (mod === 'v') {
-                    if (this.stack.length > 0) {
-                        const v = this.stack.pop();
-                        this.stack.push(String(v).toLowerCase());
-                    }
-                    this.x = nx; this.y = ny;
-                    return;
-                }
                 this.stack.push(v);
                 this.x = nx; this.y = ny;
                 return;
