@@ -352,6 +352,22 @@ class ArrowPrint {
             }
             return;
         }
+        // === СТЕПЕНЬ (**) ===
+        if (c === '*' && this.isValidPos(this.x + 1, this.y) && this.getChar(this.x + 1, this.y) === '*') {
+            if (this.stack.length >= 2) {
+                const a = this.stack.pop();
+                const b = this.stack.pop();
+                try {
+                    const an = typeof a === 'number' ? a : Number(a);
+                    const bn = typeof b === 'number' ? b : Number(b);
+                    this.stack.push(Math.pow(bn, an));
+                } catch {
+                    this.stack.push(0);
+                }
+            }
+            this.x += 1;
+            return;
+        }
 
         // === МАТЕМАТИКА ===
         if ('+-*;%&|'.includes(c)) {
@@ -414,24 +430,6 @@ class ArrowPrint {
             }
             return;
         }
-
-        // === СТЕПЕНЬ (**) ===
-        if (c === '*' && this.isValidPos(this.x + 1, this.y) && this.getChar(this.x + 1, this.y) === '*') {
-            if (this.stack.length >= 2) {
-                const a = this.stack.pop();
-                const b = this.stack.pop();
-                try {
-                    const an = typeof a === 'number' ? a : Number(a);
-                    const bn = typeof b === 'number' ? b : Number(b);
-                    this.stack.push(Math.pow(bn, an));
-                } catch {
-                    this.stack.push(0);
-                }
-            }
-            this.x += 1;
-            return;
-        }
-
         // === КОРЕНЬ ===
         if (c === '√') {
             if (this.stack.length >= 2) {
