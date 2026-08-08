@@ -21,10 +21,9 @@ const examples = {
                                              v
                                              >"Idk"?@@`,
     'Random number':
-`
->1 10\`"N"?>"umber: "?,{=}>"Right!"?@@
+`>1 10\`"N"?>"umber: "?,{=}>"Right!"?@@
                       v
                       >"Wrong, n"?'v
-          ^                         <
+          ^                        <
 `
 }
