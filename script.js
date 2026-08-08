@@ -939,21 +939,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(async () => {
             try {
-                // Получаем лимит шагов
-                let maxSteps = Infinity;
-                if (limitToggle.checked) {
-                    const val = parseInt(stepLimitInput.value);
-                    if (!isNaN(val) && val > 0) {
-                        maxSteps = val;
-                    }
-                }
-
                 const interpreter = new ArrowPrint(code, async () => {
                     const output = document.getElementById('output');
                     const t = translations[currentLang];
                     output.textContent += '\n⌨️ ' + t.inputPrompt + ' ';
                     return await handleInput();
-                }, maxSteps);
+                });
 
                 const result = interpreter.run();
                 const output = document.getElementById('output');
