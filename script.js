@@ -853,8 +853,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const examplesContainer = document.getElementById('examplesContainer');
     const terminalInput = document.getElementById('terminal-input');
     const inputLine = document.getElementById('input-line');
-    const limitToggle = document.getElementById('limitToggle');
-    const stepLimitInput = document.getElementById('stepLimit');
     if (typeof examples !== 'undefined') {
         for (const [name, code] of Object.entries(examples)) {
             const btn = document.createElement('button');
