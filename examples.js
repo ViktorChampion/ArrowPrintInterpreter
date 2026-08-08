@@ -25,6 +25,6 @@ const examples = {
 >1 10\`"N"?>"umber: "?,{=}>"Right!"?@@
                       v
                       >"Wrong, n"?'v
-          ^                        <
+          ^                       <
 `
 }
