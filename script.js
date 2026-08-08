@@ -14,8 +14,6 @@ class ArrowPrint {
         this.dy = 0;
         this.output = '';
         this.running = false;
-        this.maxSteps = maxSteps;
-        this.stepCount = 0;
         this.random = Math.random;
         this.inputHandler = inputHandler || (() => '');
         this.waitingForInput = false;
@@ -31,8 +29,7 @@ class ArrowPrint {
         this.output = '';
 
         try {
-            while (this.running && this.stepCount < this.maxSteps) {
-                this.stepCount++;
+            while (this.running) {
                 const c = this.getChar(this.x, this.y);
                 if (c === undefined) break;
 
