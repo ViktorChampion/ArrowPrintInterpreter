@@ -79,7 +79,11 @@ class ArrowPrint {
                 if (ch === 'v') { this.dx = 0; this.dy = 1; this.x = x; this.y = y; return; }
             }
         }
-        this.x = 0; this.y = 0; this.dx = 1; this.dy = 0;
+        // Если стрелок нет — начинаем с (0,0) и идём вправо
+        this.x = 0;
+        this.y = 0;
+        this.dx = 1;
+        this.dy = 0;
     }
 
     getChar(x, y) {
@@ -505,35 +509,8 @@ class ArrowPrint {
 
         // === ЧИСЛА ===
         if (c >= '0' && c <= '9') {
-            let numStr = c;
-            let cx = this.x + this.dx;
-            let cy = this.y + this.dy;
-            while (true) {
-                if (cy < 0 || cx < 0 || cy >= this.grid.length || cx >= this.grid[cy].length) break;
-                const ch = this.getChar(cx, cy);
-                if (ch >= '0' && ch <= '9') {
-                    numStr += ch;
-                    cx += this.dx;
-                    cy += this.dy;
-                } else if (ch === '.') {
-                    numStr += '.';
-                    cx += this.dx;
-                    cy += this.dy;
-                    while (true) {
-                        if (cy < 0 || cx < 0 || cy >= this.grid.length || cx >= this.grid[cy].length) break;
-                        const ch2 = this.getChar(cx, cy);
-                        if (ch2 >= '0' && ch2 <= '9') {
-                            numStr += ch2;
-                            cx += this.dx;
-                            cy += this.dy;
-                        } else break;
-                    }
-                    break;
-                } else break;
-            }
-            this.stack.push(numStr.includes('.') ? parseFloat(numStr) : parseInt(numStr));
-            this.x = cx - this.dx;
-            this.y = cy - this.dy;
+            // Кладём число на стек как число (не строку)
+            this.stack.push(parseInt(c));
             return;
         }
 
