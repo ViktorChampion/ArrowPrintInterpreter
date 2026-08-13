@@ -126,7 +126,43 @@ class ArrowPrint {
         if (c === 'v') { this.dx = 0; this.dy = 1; return; }
         if (c === '/') { const t = this.dx; this.dx = -this.dy; this.dy = -t; return; }
         if (c === '\\') { const t = this.dx; this.dx = this.dy; this.dy = t; return; }
+        // === GET (g) ===
+        if (c === 'g') {
+            if (this.stack.length >= 2) {
+                const y = this.stack.pop();
+                const x = this.stack.pop();
+                if (y >= 0 && y < this.grid.length && x >= 0 && x < this.grid[y].length) {
+                    this.stack.push(this.grid[y][x].charCodeAt(0));
+                } else {
+                    this.stack.push(32); // пробел
+                }
+            }
+            return;
+        }
 
+        // === PUT (p) ===
+        if (c === 'p') {
+            if (this.stack.length >= 3) {
+                const y = this.stack.pop();
+                const x = this.stack.pop();
+                let v = this.stack.pop();
+                let ch = ' ';
+                if (typeof v === 'string') {
+                    ch = v[0] || ' ';
+                } else {
+                    ch = String.fromCharCode(v % 256);
+                }
+                // Расширяем сетку при необходимости
+                while (y >= this.grid.length) {
+                    this.grid.push([]);
+                }
+                while (x >= this.grid[y].length) {
+                    this.grid[y].push(' ');
+                }
+                this.grid[y][x] = ch;
+            }
+            return;
+        }
         // === ТЕЛЕПОРТАЦИЯ ===
         if (c === '(') {
             let cx = this.x + this.dx;
