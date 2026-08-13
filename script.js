@@ -132,9 +132,10 @@ class ArrowPrint {
                 const y = this.stack.pop();
                 const x = this.stack.pop();
                 if (y >= 0 && y < this.grid.length && x >= 0 && x < this.grid[y].length) {
-                    this.stack.push(this.grid[y][x].charCodeAt(0));
+                    const ch = this.grid[y][x];
+                    this.stack.push(ch === ' ' ? '' : ch);
                 } else {
-                    this.stack.push(32); // пробел
+                    this.stack.push('');
                 }
             }
             return;
@@ -152,13 +153,8 @@ class ArrowPrint {
                 } else {
                     ch = String.fromCharCode(v % 256);
                 }
-                // Расширяем сетку при необходимости
-                while (y >= this.grid.length) {
-                    this.grid.push([]);
-                }
-                while (x >= this.grid[y].length) {
-                    this.grid[y].push(' ');
-                }
+                while (y >= this.grid.length) this.grid.push([]);
+                while (x >= this.grid[y].length) this.grid[y].push(' ');
                 this.grid[y][x] = ch;
             }
             return;
